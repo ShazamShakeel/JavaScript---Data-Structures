@@ -23,17 +23,17 @@ class MyArray {
     return item;
   }
   shiftItems(index) {
-    for (let i = index; i < this.length; i++) {
+    for (let i = index; i < this.length-1; i++) {
       this.data[i] = this.data[i + 1];
     }
     delete this.data[this.length - 1];
     this.length--;
   }
   unshift(item) {
-    this.shiftItemsForward(item);
+    this.unshiftItems(item);
     return this.length;
   }
-  shiftItemsForward(item) {
+  unshiftItems(item) {
     this.length++;
     for (let i = this.length - 1; i > 0; i--) {
       this.data[i] = this.data[i - 1];
@@ -47,8 +47,16 @@ class MyArray {
   }
 };
 const newArray = new MyArray();
-newArray.push("Hello");
-newArray.push("World");
-newArray.push("!");
 console.log(newArray);
-newArray.get(2);
+newArray.push(0);
+newArray.push(1);
+newArray.push(2);
+newArray.push(3);
+newArray.push(4);
+newArray.push(5);
+newArray.push(6);
+console.log(newArray);
+newArray.delete(0);
+console.log(newArray);
+newArray.unshift(0);
+console.log(newArray);
