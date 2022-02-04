@@ -17,5 +17,5 @@ function reverseStr2(str){
 reverseStr2("Hello World 02 !")
 
 //Method 03
-const reverseStr3 = str => str.split("").reverse().join("")
+const reverseStr3 = str => [...str].reverse().join("")
 reverseStr3("Hello World 03 !")
