@@ -1,92 +1,118 @@
-//Linked List Class
 class LinkedList {
   constructor(value) {
     this.head = {
       value,
       next: null,
     };
-    this.tail = this.head,
-    this.length = 1
+    this.tail = this.head;
+    this.length = 1;
   }
-  prepend(value) {
-    const newNode = {
-      value,
-      next: null,
-    };
-    // console.log("Prepend", newNode)
-    newNode.next = this.head;
-    this.head = newNode;
-    this.length++;
-  }
+
+  //Append
   append(value) {
     const newNode = {
       value,
       next: null,
     };
-    // console.log("Append", newNode)
     this.tail.next = newNode;
     this.tail = newNode;
-    this.length++;
+    return this.length++;
   }
-  insert(index, value) {
-    if (index === 0) {
-      return this.prepend(value);
-    } else if (index >= this.length) {
-      return this.append(value);
-    }
-    let currentNode = this.head;
+
+  //Prepend
+  prepend(value) {
     const newNode = {
       value,
       next: null,
     };
-    for (let i = 1; i < index; i++) {
-      currentNode = currentNode.next;
-    }
-    newNode.next = currentNode.next;
-    currentNode.next = newNode;
-    this.length++;
-  }
-  remove(index) {
-    if(index == 0){
-      let newHeadNode = this.head.next
-      this.head = newHeadNode
-      return this.head
-    } else if (index >= this.length-1){
-      let currentNode = this.head;
-      for(let i = 1; i < this.length - 2; i++){
-        currentNode = currentNode.next
-      }
-      this.length--
-      return currentNode.next = null
-    }
-    let currentNode = this.head;
-    for(let i = 1; i < index; i++){
-      currentNode = currentNode.next
-    }
-    let unwantedNode = currentNode.next
-    currentNode.next = unwantedNode.next
-    this.length--
-    return this.length
+    newNode.next = this.head;
+    this.head = newNode;
+    return this.length++;
   }
 
-  //Print Linked List Values
-  printList() {
-    const array = [];
+  //Insert
+  insert(value, index = this.length) {
+    if (index <= 0) {
+      return this.prepend(value);
+    }
+    if (index >= this.length) {
+      return this.append(value);
+    }
+    const newNode = {
+      value,
+      next: null,
+    };
+    let currentNode = this.traverse(index - 1);
+    newNode.next = currentNode.next;
+    currentNode.next = newNode;
+    return this.length++;
+  }
+
+  //Delete
+  delete(index = this.length) {
+    if (index <= 0) {
+      this.head = this.head.next;
+      return this.length--;
+    }
+    if (index >= this.length) {
+      let currentNode = this.traverse(this.length - 2);
+      currentNode.next = null;
+      this.tail = currentNode;
+      return this.length--;
+    }
+    let currentNode = this.traverse(index - 1);
+    let middleNode = currentNode.next;
+    middleNode = middleNode.next;
+    currentNode.next = middleNode;
+    return this.length--;
+  }
+
+  //Search
+  search(value){
+      let currentNode = this.head
+      let i = 0
+      while(currentNode.next != null){
+        i++
+          if(currentNode.value == value){
+            return {value, i}
+          } else {
+            currentNode = currentNode.next
+          }
+      }
+  }
+
+  //Array of Items
+  items() {
+    let arr = [];
     let currentNode = this.head;
-    while (currentNode !== null) {
-      array.push(currentNode.value);
+    while (currentNode != null) {
+      arr.push(currentNode.value);
       currentNode = currentNode.next;
     }
-    return array;
+    return arr;
+  }
+
+  //Traverse to Index
+  traverse(index) {
+    let currentNode = this.head;
+    let i = 0;
+    while (i < index) {
+      currentNode = currentNode.next;
+      i++;
+    }
+    return currentNode;
   }
 }
 
-const myLinkedList = new LinkedList(1);
-myLinkedList.prepend(0);
-myLinkedList.append(2);
-myLinkedList.append(3);
-myLinkedList.append(4);
-myLinkedList.insert(3, ".");
-myLinkedList.remove(3);
-console.log(myLinkedList.printList());
-console.log(myLinkedList);
+const list = new LinkedList(3);
+list.append(4);
+list.append(5);
+list.append(6);
+list.prepend(2);
+list.prepend(1);
+list.prepend(0);
+list.insert("x", 4);
+list.delete(4);
+console.log(list.search(2))
+console.log(list);
+console.log(list.items());
