@@ -114,6 +114,28 @@ class LinkedList {
     }
     return currentNode;
   }
+
+  //Reverse
+  reverse() {
+    if(!this.head.next){
+      return this.head;
+    }
+    let first = this.head
+    this.tail = this.head
+    let second = this.head.next
+    let temp;
+    while(second){
+      temp = second.next
+      second.next = first
+      first = second
+      second = temp
+    }
+    this.tail.prev = this.head.next
+    this.head.next = null
+    this.head = first
+    this.head.prev = null
+    return this.items()
+  }
 }
 
 const list = new LinkedList(2);
@@ -128,3 +150,5 @@ list.delete(4);
 console.log(list.search("x"));
 console.log(list);
 console.log(list.items());
+console.log(list.reverse())
+console.log(list)
