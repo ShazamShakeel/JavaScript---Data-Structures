@@ -27,7 +27,7 @@ function mergeSortedArrays(arr1, arr2) {
 
 mergeSortedArrays([0, 3, 4, 31], [3, 4, 6, 30]);
 
-//Method 02
+//Using Built in Methods
 function mergeSortedArrays2(arr1, arr2) {
   const mergeSortedArr = arr1.concat(arr2).sort(function (a, b) {
     return a - b;
