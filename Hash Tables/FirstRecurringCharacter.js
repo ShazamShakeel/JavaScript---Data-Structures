@@ -7,8 +7,7 @@ function firstRecurringCharacter(input) {
     }
     hashObj[input[i]] = true;
   }
-  console.log(undefined);
-  return undefined;
+  return false;
 }
 
 firstRecurringCharacter([2, 5, 5, 2, 3, 5, 1, 2, 4]);
